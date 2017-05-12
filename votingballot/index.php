@@ -1,10 +1,24 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: index.php		                                                          |
+ | Page name: 2017 Golden Goldys Awards Ballot                                        |
+ | Author: Krista Sheely                                                              |
+ | Written: 05/2016                                                                   |
+ | Tables: goldys_voting, goldys_categories, goldys_finalists                         |
+ | Description: Voting ballot for Golden Goldys. Uses bootstrap as foundation. 		  |
+ |		Requires loggin to vote. Open to anyone in intranet system.					  |	 
+ | Updates: 												                          |
+ |  	05/2017: Updated to requirements to 2017 requirements                         |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(191); 
 ?> 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,77 +38,54 @@ $page = new Web_Page(191);
     <![endif]-->
 
   
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
-
-
-
-    <script src="/include/bootstrap/js/bootstrap.min.js"></script>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+	<script src="/include/bootstrap/js/bootstrap.min.js"></script>
     
-  <style>
-  body
-  {
-	  /*background-color: #761e2e;*/
-  }
-  .container
-  {
-	  background-color:#ffffff;
-	  
-  }
-  .jumbotron
-  {
-	  margin-bottom: 0px;
-  }  
-  html{font-size:10px;-webkit-tap-highlight-color:rgba(0,0,0,0)}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}
-body{margin:0}
-  </style>
-  </head>
+	<style>
+    .container
+    {
+	    background-color:#ffffff;    
+    }
+    .jumbotron
+    {
+    	margin-bottom: 0px;
+    }  
+    html
+    {
+	    -webkit-tap-highlight-color:rgba(0,0,0,0)
+    }
+    body
+	{
+		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size:14px;
+		line-height:1.42857143;
+		color:#333;
+		background-color:#fff;
+		margin:0;
+    }
+    </style>
+</head>
+<body>
 
-
-  <body>
-  
-
-           
-           
-   
-
- 
  	<div class="container">
     <img src="include/Golden-Goldys-17-header.jpg" width="100%"/>
-    
-    
-    <!--  <div class="alert alert-danger" role="alert">
-            
-            
-            Thank you all for your votes! The voting for Golden Goldys 2017 has been closed. <br/> Please make sure to <strong>Save the Date</strong> for the <strong>The Golden Goldys</strong>, Monday, May 2, 2017 at TCF Bank Stadium.
-            </div> 
-           <div style="text-align:center; margin-bottom: 15px;"><img src="http://grfx.cstv.com/schools/minn/graphics/daily-golden-2016.png"/></div>
-           
-           -->
            
 	<?php
 	
-/*	$FTE_users = array('bgoetz','rmhandel',	'jyehlen', 'tmcginni',	'cjwerle', 'ryanx011',
-						'ataylord',	'cart0194',	'bruet001', 'owens140',	'ellis004',	'owens140',
-						'ellis004',	'alfx0001',	'allister',	'ander014',	'bingl001',	'burns265',
-						'carl0907',	'davis194',	'frost017', 'hess0125',	'hmccutch',	'kreme010',
-						'lucia004',	'marlene',	'merzb001',	'mrredman',	'niesz001',	'plase001',
-						'robin002',	'rwpitino',	'skgolan', 'tlclaeys', 'wchen', 'young843',
-						'lindq010',	'goon',	'seifr001',	'jdtweedy', 'doyle042',	'psrovnak',
-						'wiley077',	'tabudke', 'rasm0222', 'holck', 'adzick', 'keiser',	'gisla002',	'owens018',
-						'shee0129','vossx120','traen001','keiser','gwwright','romox001','meyer174','lagas001');
-*/
-	$FTE_users = array('shee0129','owens140','traen001','keiser','lagas001');
-
-	$userTypeq = "SELECT user_type FROM users WHERE username = '".$page->user."'";
-		
+	//SPECIAL PERMISSIONS FOR TESTING
+	$FTE_users = array('shee0129','owens140','traen001','keiser','lagas001');	
+	$userTypeq = "SELECT user_type FROM users WHERE username = '".$page->user."'";	
 	$userTyper = $page->db->query($userTypeq);
-	 $userType = $userTyper->fetch(PDO::FETCH_ASSOC);
+	$userType = $userTyper->fetch(PDO::FETCH_ASSOC);
 
-		
-//if($userType['user_type'] == 5 || in_array($page->user ,$FTE_users))	//student athletes only
-//if(in_array($page->user ,$FTE_users))	//student athletes only
+
+//***IF STATEMENTS BASED ON REQUIREMENTS **************////////	
+//if($userType['user_type'] == 5 || in_array($page->user ,$FTE_users))	//student athletes only AND testers
+//if(in_array($page->user ,$FTE_users))	//TESTING UESRS
 //{
+	
+	
 	if(isset($_POST['submit']))
 	{
             $categories = array();
@@ -107,25 +98,22 @@ body{margin:0}
 			{
 				$vote_q = "INSERT INTO goldys_voting (user, timestamp, category_id, finalists_id)
 							VALUES('".$page->user."',".time().",".$c['id'].",".$_POST["vote".$c['id']].")";
-//				echo $vote_q ;
 				$vote = $page->db->query($vote_q);				
 
 				if($vote != false)
 					$count++;
 			}
 			
-			//echo "COUNT: " . $count;
+		
 			if($count == 10)
 			{
 			?>
             
             <div class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-            
-            Thank you for your vote! Please make sure to <strong>Save the Date</strong> for the <strong>The Golden Goldys</strong>, Monday, May 1, 2017 at TCF Bank Stadium in the DQ Club Room with doors opening at 5:45pm.
-            </div>
-           <!--<div style="text-align:center; margin-bottom: 15px;"><img src="http://grfx.cstv.com/schools/minn/graphics/daily-golden-2016.png"/>-->
-
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                
+                Thank you for your vote! Please make sure to <strong>Save the Date</strong> for the <strong>The Golden Goldys</strong>, Monday, May 1, 2017 at TCF Bank Stadium in the DQ Club Room with doors opening at 5:45pm.
+               
 
            </div>
             
@@ -145,11 +133,12 @@ body{margin:0}
 			{
 				
 				?>
-				 <div class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-            
-            Our records show that you have already voted in this year's Golden Goldys. If this is incorrect, please email the <a href="mailto:icaweb@umn.edu">Web Administrator at icaweb@umn.edu</a>.
-            </div>
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                
+                    Our records show that you have already voted in this year's Golden Goldys. If this is incorrect, please email the <a href="mailto:icaweb@umn.edu">Web Administrator at icaweb@umn.edu</a>.
+                
+                </div>
            
            
            
@@ -161,13 +150,13 @@ body{margin:0}
 		
     ?>
     <style>
-	thead {
-background-color: rgba(140,25,25,.5);
-border: #fff;
-
+	thead 
+	{
+		background-color: rgba(140,25,25,.5);
+		border: #fff;
 	}
-	.table>thead>tr>th {
-	
+	.table>thead>tr>th 
+	{
 		border-radius: 5px;
 		color: #333;
 	}
@@ -198,6 +187,7 @@ border: #fff;
 		cursor:pointer;
 	}
 	</style>
+    
     <script>
 	function toggler(divId) {
 		
@@ -206,8 +196,8 @@ border: #fff;
 	</script>
     
     <?php $logout_url = Web_Shibboleth::shib_logout_url(); ?>
+    
     <p style="padding-top: 15px;">You are currently logged in as: <strong><?php echo $page->user; ?></strong>. Click here to <a href="<?php echo $logout_url;?>"><strong>Log Out</strong></a>.</p>
- 
     
     
      	<form method="post" action="index.php">
@@ -285,25 +275,11 @@ border: #fff;
             </div>
         </form>
     
-          <?php }
+<?php }
 		  
-	}
-	/*}
-	else
-	{
-		?>
-         <div class="alert alert-danger" role="alert"style='margin-top: 15px'>
-            <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-            
-            Our records show that you are not a Student Athlete or a member of the voting committee. If you are a member of one of these two parties and would like to submit your vote, please email the <a href="mailto:icaweb@umn.edu">Web Administrator at icaweb@umn.edu</a>.
-            </div>
-          <!-- <div style="text-align:center; margin-bottom: 15px;"><img src="http://grfx.cstv.com/schools/minn/graphics/daily-golden-2016.png"/></div>-->
-        
-        
-        <?php
-		
-	}*/
-	?>
+}
+	
+?>
         
        </div>
     
@@ -349,5 +325,5 @@ border: #fff;
       </div>
     </footer>
     
-    </body>
-    </html> 
+</body>
+</html> 

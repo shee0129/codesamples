@@ -1,3 +1,20 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: admin.php		                                                          |
+ | Page name: 2017 Golden Goldys Awards Ballot Admin Page                             |
+ | Author: Krista Sheely                                                              |
+ | Written: 05/2016                                                                   |
+ | Tables: goldys_voting, goldys_categories, goldys_finalists                         |
+ | Description: Admin page for Golden Goldys. Uses bootstrap as foundation. 		  |
+ |		Requires loggin to vot and requires user to belong to Golden Goldys module	  | 
+ | 		(191) to loggin. Results are listed by total and by categories. Results are   |
+ |      also listed by number of votes per user type. This was done by user 		  |
+ |   	requirement.																  |		
+ | Updates: 												                          |
+ |  																                  |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(191); 
@@ -25,37 +42,39 @@ $page->setPermissions(191);
     <![endif]-->
 
   
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
-
-
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
     <script src="/include/bootstrap/js/bootstrap.min.js"></script>
     
-  <style>
-  body
-  {
-	  /*background-color: #761e2e;*/
-  }
-  .container
-  {
-	  background-color:#ffffff;
-	  
-  }
-  .jumbotron
-  {
-	  margin-bottom: 0px;
-  }
-    html{font-size:10px;-webkit-tap-highlight-color:rgba(0,0,0,0)}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}
-body{margin:0}
-  </style>
+	<style>
+    .container
+    {
+	    background-color:#ffffff;    
+    }
+    .jumbotron
+    {
+    	margin-bottom: 0px;
+    }  
+    html
+    {
+	    -webkit-tap-highlight-color:rgba(0,0,0,0)
+    }
+    body
+	{
+		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size:14px;
+		line-height:1.42857143;
+		color:#333;
+		background-color:#fff;
+		margin:0;
+    }
+    </style>
+    
   </head>
 
 
   <body>
-    <?php //print_r ($_POST); 
-	
-	?>
+
     <style>
 
 	.row#head
@@ -223,17 +242,7 @@ body{margin:0}
 				
 			}
 
-
-
 	?>
-
-
-
-
-
-
-
-
             </tbody>
         </table>    
 
@@ -284,11 +293,7 @@ body{margin:0}
 
 			  
 				foreach($finalists as $f)
-				{
-
-		
-							
-						
+				{						
 						if($winner['finalists_id'] == $f['id'])
 						{
 		           			echo '<div class="row" id="winner">';							
@@ -364,13 +369,6 @@ body{margin:0}
 			 } ?>
 	
 	
-		
-
-
-
-
-	
-          
     </div>
      <footer class="footer" style="padding-bottom: 5px;">
       <div class="container">

@@ -1,7 +1,24 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: season.php		                                                      |
+ | Page name: Gopher Athletics Season Working Credentials                             |
+ | Author: Krista Sheely                                                              |
+ | Written: 05/2015                                                                   |
+ | Tables: credential_request_2016, credential_details_2016,                          |
+ | 		credential_status_log_2016                                                    |
+ | Description: Request page for users to request season credentials. 				  |
+ | 		Credentials are divided by their location, and users then select markings     |
+ |        and zones where applicable.                                                 |  
+ |        After submitting, users and admins will receive an email with copy of 	  | 	
+ |        request.														 		      |
+ | Updates: 												                          |
+ |  	05/2016, K. Sheely : Updated to 2016 requirements | added Bootstrap           |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(189); 
-
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +121,7 @@ select.location {
 <body>
 
 <div class="container">
-<?php //echo print_r($_POST); ?>
+
 <div class="page-header">
   
   <h1><img src="https://www.athletics.umn.edu/images/m.gif" hspace="10" /> Season Working Credentials</h1>
@@ -125,7 +142,6 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 				  status_id="1", 
 				  req_type="SEASON", 			  	  				  
 				  timestamp="'.time() . '"');
-	//echo $insertquery;
 	$insertquery_results = $page->db->query($insertquery);
 	$request_id = $page->db->lastInsertId();		
 
@@ -136,7 +152,6 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 				  request_id = '".$request_id."',
 				  timestamp=" . time() . ", 
 				  status_id='1'");
-	//echo "<br/>".$statusinsert;
 	$statusinsert_results = $page->db->query($statusinsert);
 	
 
@@ -158,7 +173,6 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 					  cred_loc="'.$_POST['employeeLocation_'.$i].'",
 					  markings="'.$markings.'", 	
 					  zones="'.$zones.'"');
-		//echo "<br/>".$insertcredentials;
 		$insertcredentials_results = $page->db->query($insertcredentials);
         }
 	}
@@ -213,49 +227,15 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
         $files_id = implode(",", $files);
         $headshots = implode(",", $filesTitle);
     }
-	/*// Loop $_FILES to exeicute all files
-	$count = 0;
-	if(isset($_POST['file_' . $count]))
-	{
-		$insertFileName_q = "INSERT INTO files SET module='161',
-						  active='1',
-						  name='".$_POST['file_' . $count]."', 
-						  size='', 
-						  type='', 
-						  label='headshot', 
-						  timestamp=" . time() . ", 
-						  user='requester'";
-
-
-		//echo $insertFileName_q;
-						  
-		$insertFileName_r = $page->db->query($insertFileName_q);
-		//echo $insertFileName_q;
-
-		$filesid = $page->db->lastInsertId();						  
-
-		$insertHeadshots = ('INSERT INTO credential_headshots_2016 
-						SET request_id="'.$request_id.'",
-					  file_id='.$filesid);
-		//echo "<br/>".$insertHeadshots;
-		$insertHeadshots_r = $page->db->query($insertHeadshots);	
-		
-		$count++;
-	}*/
-
+	
 	//echo "SENDING EMAIL";
 	include "emails/email_season.php";
-	//echo "<br/>EMAIL SENT";
 	
 	echo "<p>Thank you for submitting your credential request. Your request will be addressed within the next 2-3 business days. If you have any questions please contact the Event Management office.</p>";
-} else{
+	
+} else {
 
 ?>
-
-
-
-
-
 
  <form action="season.php" method="post" id="form1"  enctype="multipart/form-data">
 	<div id="contactPanel" style="width:50%;">
@@ -302,12 +282,6 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 
                 </div>
             </div>  
-
-      
-            
-      
-            
-            
              
                  
           </div><!--panel-body-->
@@ -445,11 +419,6 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
     <p><strong>Headshot format: Image should be at least 150 DPI and at least 2" wide by 3" tall. It should not exceed 6 MB.</strong></p>
     <p><strong>Label each file as: <span style="font-family:'Courier New';">Last Name, First Name – Department </span></strong></p>
     
-<!--form action="js/uploads.php" class="dropzone" id="dropzoneForm" method="post" enctype="multipart/form-data">
- <div class="fallback">
-    <input name="file" type="file" multiple />
-  </div>
-</form>-->
               <input type="file" id="images" name="images[]"  multiple="multiple" />
               <p><strong>Hint: To select more than 1 image, use CTRL or SHIFT when selecting images. </strong></p>
 
@@ -457,9 +426,12 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
           </div><!--panel-body-->
         </div><!--panel panel-default-->
 	</div> <!--panel panel-default container-->   
+    
 <button type="submit" class="btn btn-primary" name="submitAllButtons" id="submitAllButtons">Submit</button>
+
     </form>
 <?php } ?>
+
 <hr/>
 
   <p style="margin-top:50px;">Confused? Need help? Email <a href="mailto:rhie0012@umn.edu">Geoff Rhiel</a> in Gopher Athletics Event Management.</p>
@@ -532,35 +504,12 @@ $(function() {
         }
     });
 
-
-    /*  var filecount = 0;
-
-   var myDropzone = new Dropzone("#dropzoneForm");
-     myDropzone.on("addedfile", function(file) {
-
-         if(file.size < 6291456)
-         {
-            var fileNameForms = $('#fileNames');
-            $('<input name="file_'+filecount+'" type="hidden" value="'+file.name+'"/>').appendTo(fileNameForms);
-            filecount++;
-         }
-         else {
-            alert("The image " + file.name + " exceeds the size limit of 6 MB, please resize and reupload.");
-             myDropzone.removeFile(file);
-         }
-
-    });*/
-
-
-
 	$('[name=contactPhone]').mask('(999) 999-9999');
 	
 	$('#contactName').change(function() {
     
 	
 		var name = $('#contactName').val();
-	
-		//alert(name);
 		
 		$.ajax({
 			  type : 'GET',
@@ -568,8 +517,6 @@ $(function() {
 			  dataType : 'html',
 			  data: {
 				  contactName : $('#contactName').val()
-				  //affiliation : $('#searchAffiliation').val(),
-				  //status : $('#searchStatus').val(),
 			  },
 			  success : function(data){			
 					   
@@ -652,14 +599,8 @@ $(function() {
 		});			  
 	});	
 
-
-
-
-  
 	$('[name=phone]').mask('(999) 999-9999');
-
-
-			
+		
     $("select#affiliation").on("change", function(){
   		
 		
@@ -690,7 +631,7 @@ var rowcount = 2;
 
 $(document).on('click', '#addperson', function(){
    
-//alert("ADDING");
+
 		var row = "<tr><th scope='row'>"+parseInt(rowcount)+"</th><td><input type='text' class='form-control' name='credName_"+rowcount+"'></td>"+
 			"<td><input type='text' class='form-control' name='credPosition_"+rowcount+"'></td>"+
 			"<td><select class='location' name='employeeLocation_"+rowcount+"' id='location"+rowcount+"' required>"+

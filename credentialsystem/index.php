@@ -1,3 +1,17 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: index.php		                                                          |
+ | Page name: Gopher Athletics Season Working Credentials Home Page                   |
+ | Author: Krista Sheely                                                              |
+ | Written: 05/2014                                                                   |
+ | Tables: none												                          |
+ | Description: Main landing page for credential system						 		  |		
+ |  																                  |
+ | Updates: 												                          |
+ |  																                  |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(189);
@@ -26,11 +40,8 @@ $page = new Web_Page(189);
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
     <script src="/include/bootstrap/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
-    <script src="js/dropzone.js"></script>
 
     <style>
         body
@@ -51,8 +62,10 @@ $page = new Web_Page(189);
 
         html{font-size:10px;-webkit-tap-highlight-color:rgba(0,0,0,0)}
     </style>
+    
 <body>
 <div class="container">
+
     <div class="page-header">
 
         <h1><img src="https://www.athletics.umn.edu/images/m.gif" hspace="10" /> Gopher Athletics Credential Requests</h1>

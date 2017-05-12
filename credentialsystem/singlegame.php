@@ -1,3 +1,20 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: singlegame.php		                                                  |
+ | Page name: Gopher Athletics Single Game Credentials                                |
+ | Author: Krista Sheely                                                              |
+ | Written: 05/2015                                                                   |
+ | Tables: credential_request_2016, credential_details_2016,                          |
+ | 		credential_status_log_2016                                                    |
+ | Description: Request page for users to single credentials.        				  |
+ | 		Credentials are divided by sport and game.                                    |  
+ |        After submitting, users and admins will receive an email with copy of 	  | 	
+ |        request.																      |
+ | Updates: 												                          |
+ |  	05/2016, K. Sheely : Updated to 2016 requirements | added Bootstrap           |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(189); 
@@ -24,90 +41,101 @@ $page = new Web_Page(189);
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>     
     <script src="/include/bootstrap/js/bootstrap.min.js"></script>
     
     
   <style>
- body
- {
-	 background-color: #761e2e;
-	 margin:0;
-	 font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-	 font-size:14px;
-	 line-height:1.42857143;
-	 color:#333;
- }
-
-  .container
-  {
-	  background-color:#ffffff;
-	  
-  }
- 
-  html{font-size:10px;-webkit-tap-highlight-color:rgba(0,0,0,0)}
-
-
-select.location {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
-
-#addperson, #addMultiple, #massUpload, .deleteRow {
-  
-    color: #791e2e;
-    font-weight: bold;
-    padding: 0px 20px;
-    text-align: center;
-   /* text-shadow: 0 -1px 0 #396715;*/
-   float: left;
-   margin-right: 10px;
-} 
-.deleteRow
-{
-/*	padding-top: 25px;*/
-}
-#addperson:hover, #addMultiple:hover, #massUpload:hover, .deleteRow:hover {
-    opacity:.85;
-    cursor: pointer; 
-}
-
-#addperson img, #addMultiple img, #massUpload img, .deleteRow img{
-  
-    height: 12px;
-	margin-right: 5px;
-} 
+	body
+	{
+		 background-color: #761e2e;
+		 margin:0;
+		 font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+		 font-size:14px;
+		 line-height:1.42857143;
+		 color:#333;
+	}
+	
+	.container
+	{
+		  background-color:#ffffff;	  
+	}
+	
+	select.location 
+	{
+		display: block;
+		width: 100%;
+		height: 34px;
+		padding: 6px 12px;
+		font-size: 14px;
+		line-height: 1.42857143;
+		color: #555;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	
+	#addperson, #addMultiple, #massUpload, .deleteRow 
+	{
+	
+		color: #791e2e;
+		font-weight: bold;
+		padding: 0px 20px;
+		text-align: center;
+		/* text-shadow: 0 -1px 0 #396715;*/
+		float: left;
+		margin-right: 10px;
+	} 
+	#addperson:hover, #addMultiple:hover, #massUpload:hover, .deleteRow:hover 
+	{
+		opacity:.85;
+		cursor: pointer; 
+	}
+	
+	#addperson img, #addMultiple img, #massUpload img, .deleteRow img
+	{
+	
+		height: 12px;
+		margin-right: 5px;
+	} 
+	.well
+	{
+		width: 46%;
+		float: left;
+		margin: 1% 2%;
+		padding: 0 9px;
+		background-color: rgba(252,186,61,.3);
+	}
+	.checkbox label
+	{
+		width: 100%;
+	}
+	
+            
+            
   </style>
 </head>
 <body>
 
 <div class="container">
-<?php //echo print_r($_POST); echo "<br/>".print_r($_FILES); ?>
+
 <div class="page-header">
   
   <h1><img src="https://www.athletics.umn.edu/images/m.gif" hspace="10" /> Single Game Credentials</h1>
+  
 </div>
 
 <?php
 if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 {
-	//print_r($_POST);
+
 
 	//********INSERT STATEMENT MAIN REQUEST ********************/				
 	$insertquery = ('INSERT INTO credential_request_2016 
@@ -120,7 +148,7 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 				  status_id="1", 
 				  req_type="SINGLE", 			  	  				  
 				  timestamp="'.time() . '"');
-//	echo $insertquery;
+
 	$insertquery_results = $page->db->query($insertquery);
 			
 				
@@ -136,7 +164,7 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 				  request_id = '".$request_id."',
 				  timestamp=" . time() . ", 
 				  status_id='1'");
-	//echo "<br/>".$statusinsert;
+
 	$statusinsert_results = $page->db->query($statusinsert);
 	
 
@@ -148,7 +176,6 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 					  name="'.$_POST['credential_name_'.$i].'", 
 					  affiliation="'.$_POST['credential_aff_'.$i].'", 
 					  type="'.$_POST['credential_type_'.$i].'"');
-		//echo "<br/>".$insertcredentials;
 		$insertcredentials_results = $page->db->query($insertcredentials);		
 	}
 
@@ -159,13 +186,12 @@ if(isset($_POST['credNums']) && $_POST['credNums'] > 0)
 		$insertGames = ('INSERT INTO credential_calendar_2016 
 						SET request_id='.$request_id.',
 					  calendar_id='.$values);
-		//echo "<br/>".$insertGames;
 		$insertGames_results = $page->db->query($insertGames);		
 	}	
 
-	//echo "SENDING EMAIL";
+	//SENDING EMAIL
 	include "emails/email_single.php";
-//	echo "<br/>EMAIL SENT";		
+	
     echo "<p>Thank you for submitting your credential request. Your request will be addressed within the next 2-3 business days. If you have any questions please contact the Event Management office.</p>";
 
 } 
@@ -219,13 +245,7 @@ else {
                     <input type="text" class="form-control" name="otherAffiliation" id="otherAffiliation" placeholder="Enter Affiliation" />
 
                 </div>
-            </div>  
-
-      
-            
-      
-            
-            
+            </div>              
              
                  
           </div><!--panel-body-->
@@ -267,37 +287,12 @@ else {
                         <option value="122">Volleyball</option>
                         <option value="157">Wrestling</option>
                     </select>
-                    <?php
-               /* $sportq = $page->db->query("SELECT id, name FROM modules WHERE flags LIKE '%sport%' ORDER BY name");
-                $sports = $sportq->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($sports as $sport) { 
-                    //Remove Spirit Squads [141] and Novice Rowing [174] from the list.
-                    if ($sport["id"] != 141 && $sport["id"] != 174) { 
-                        ?> 
-                        <option value="<?php echo $sport["id"]; ?>"><?php echo $sport["name"]; ?></option>
-                        <?php 	
-                    } 
-                }*/
-                ?>
 
                 </div>
             </div>
         </div>
 
-<style>
-			.well
-			{
-				width: 46%;
-				float: left;
-				margin: 1% 2%;
-				padding: 0 9px;
-				background-color: rgba(252,186,61,.3);
-			}
-			.checkbox label
-			{
-				width: 100%;
-			}
-			</style>
+
             
         <div id="gamecontainer">	
         	
@@ -334,7 +329,7 @@ else {
         </td>
         <td><input type="text" name="credential_name_1"  class='form-control' size="50" id="person"  required/></td>
         <td><input type="text" name="credential_aff_1" class='form-control'  size="50" id="person" required/></td>
-        <td><!--<div class="deleteRow" id="0"><img src="icons/delete.png"/>Delete Row</div>--></td>
+        <td></td>
         </tr>          
         </tbody> 
     </table>      	
@@ -343,7 +338,6 @@ else {
 
  <p style="padding-top: 20px;"> 
              		<div id="addperson"><img src="icons/plus.png"/>Add 1 Credential</div>
-                   <!-- <div id="addMultiple"><img src="icons/multipleplus.png"/>Add Multiple Credentials</div>-->
              </p>
              
              	
@@ -447,22 +441,15 @@ $(function() {
                     $('#formsubmit').show();
                     row1();
 					
-				}
-							
+				}						
 
 			}); 
-
-
-			
 			
 		} else { 
 			$('#gamecontainer').hide();
 		//	$('#credentialsRequest').hide();
 			$('#formsubmit').hide();
 		}
-		
-		
-
 		
 	});
 
@@ -509,7 +496,8 @@ $(function() {
     $(document).on('click', '.well', function(){
         $('#credentialDetails').show();
     });
-$(document).on('click', '#addperson', function(){
+
+	$(document).on('click', '#addperson', function(){
 
 		  var row = "<tr><td>"+parseInt(rowcount) +"</td><td>";
 
@@ -548,24 +536,17 @@ $(document).on('click', '#addperson', function(){
         $("#credNums").val(rowcount) ;
         //keep track of our row count
 			rowcount++; 
-			
-
-												
+															
 			$('#table tbody').append(row);
 
-				
-		
+					
 	});	
 
 	
 });
     
 
-			
-
 </script>
-
-
 
 </body>
 </html>

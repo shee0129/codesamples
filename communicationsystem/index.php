@@ -1,6 +1,20 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: index.php		                                                          |
+ | Page name: The Gopher Daily							                              |
+ | Author: Krista Sheely                                                              |
+ | Written: 09/2015                                                                   |
+ | Tables: mainpage_tags, mainpage_posts                         					  |
+ | Description: The Gopher Daily is the home page for all Athletics employees. It is  |
+ |		the main page for al postings and communications for staff. The page has a    |
+ |      nav bar on the right. 														  |		
+ |  	Employees can also comment on posts.						                  |
+ | Updates: 												                          |
+ |  																                  |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php 
-//include($_SERVER['DOCUMENT_ROOT'] . "/include/db_connect.php");
-//include($_SERVER['DOCUMENT_ROOT'] . "/credential/mail/htmlMimeMail5.php");
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(199);   
 $title = "The Gopher Daily";  
@@ -163,10 +177,7 @@ if(isset($_GET["tag"]))
 						echo ('<div class="videoWrapper"><iframe width="560" height="349" src="https://www.youtube.com/embed/'. $p['media_link'] .'" frameborder="0" allowfullscreen></iframe></div>');
 						
 					}	
-					/*else
-					{
-						echo ('no top media ' . $p[' media_link'] ." --" . strpos($p['media_link'], "https://www.youtube.com/embed"));
-					}*/
+
 					echo ("</div>");
 					?>
 						<div class="title"><a href="index.php?id=<?php echo $p['postId']; ?>"><?php echo $p['title']; ?></a></div>
@@ -177,7 +188,6 @@ if(isset($_GET["tag"]))
 							$tags_array = array();
 							$tags_array = explode(",", $p['tags']);
 							
-							//echo "Tags count: " . count($tags_array);
 							foreach ($tags_array as $key => $value) {
 								
 								$value = trim($value); 
@@ -253,12 +263,6 @@ if(isset($_GET["tag"]))
 		
 	$olderPage = $max + 5;
 	$newerPage = $max - 5;
-	/*
-	 
-	echo ("NUMBER OF POSTS " . $post_count);
-	echo ("<br/>MAX " . $max);		
-	echo ("<br/>OLDER PAGE " . $olderPage);	
-	echo ("<br/>NEWER PAGE " . $newerPage . "<br/>");	 	*/
 	
 	echo ("<div class='olderPage'>");
 	if(!isset($id))
@@ -325,16 +329,7 @@ if(isset($_GET["tag"]))
 <script type="text/javascript">
 
 $(function() { 		
-/*
-$('.topMedia').click(function(e) { 
-		var mediaId = $(this).attr("id");
-		
-		$('input[name=zoomId]').val(mediaId);
-		
-		$('#zoomForm').submit();
-	
-	});
-*/ 
+
 		var bodyheight = $('#mainleft').height();
 		var postheight = $('#postContainer').height();
 	
@@ -345,8 +340,7 @@ $('.topMedia').click(function(e) {
 	
 	$('.commentNum').click(function(e) { 
 		var id = $(this).attr('id');
-	
-//		$("#container_" + id).show();
+
 		if(document.getElementById('container_' + id).style.display == "none")
 		{
 			document.getElementById('container_' + id).style.display = "block";

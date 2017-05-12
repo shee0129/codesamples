@@ -1,12 +1,23 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: admin.php		                                                          |
+ | Page name: The Gopher Daily Admin Page							                  |
+ | Author: Krista Sheely                                                              |
+ | Written: 09/2015                                                                   |
+ | Tables: mainpage_tags, mainpage_posts                         					  |
+ | Description: Admin page allows admin to view, edit, and delete posts for the Gopher|
+ |		Daily communication system.													  |
+ | Updates: 												                          |
+ |  																                  |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(199); 
 $title = "Daily Gopher Admin Page";
 $page->setPermissions(199);
-//$page->printHeader();
-include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");    
-
-
+include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");  
 ?>
 <style>
 #postLink
@@ -27,8 +38,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");
 </style>
 <div class="addPostTitle">Admin Page</div>
 
-    <div class="editorContainer" id="editorContainer">
- 
+<div class="editorContainer" id="editorContainer">
             
 <?php   
 		
@@ -117,16 +127,6 @@ if(isset($_POST["submit"]))
 		case "Delete Post":
 			$del_loc = $page->db->query("UPDATE mainpage_posts SET published = '-1' WHERE id=". $_POST["id"]);
 			$del_res = $del_loc->fetch(PDO::FETCH_ASSOC);
-/*
-$tags_array = array();
-							$tags_array = explode(",", $_POST['tags']);
-							//echo "Tags count: " . count($tags_array);
-							foreach ($tags_array as $key => $value) {
-								
-									$query = "UPDATE  mainpage_tags SET count = count - 1
-												WHERE tag_title like  \"". $value."\"";
-									$insert = $page->db->query($query); 	
-							}*/
 
 			if (!$del_loc) {
 				echo "<h3>There was a problem deleting the post from the database. Please contact ".$page->webmaster.".</h3>";

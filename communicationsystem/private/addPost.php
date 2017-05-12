@@ -1,12 +1,24 @@
+<!----
++-------------------------------------------------------------------------------------+
+ | File Name: addPost.php		                                                      |
+ | Page name: The Gopher Daily Add Post							                      |
+ | Author: Krista Sheely                                                              |
+ | Written: 09/2015                                                                   |
+ | Tables: mainpage_tags, mainpage_posts                         					  |
+ | Description: Page that allows admin to add Posts. Images, video, and other files	  |
+ |			can also be attached to the post both as a header and embeded within	  |
+ | 			the post.																  |
+ | Updates: 												                          |
+ |  																                  |
+ |														                              |
++-------------------------------------------------------------------------------------+
+--->
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/include/autoload.php");
 $page = new Web_Page(199);
 $title = "Gopher Daily Add Post";
 $page->setPermissions(199);
-//$page->printHeader();
-include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");    
-
-
+include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");
 ?>
 
   	<div class="addPostTitle">Add New Post</div>
@@ -28,11 +40,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");
 						
 											
 					}
-					else if($_POST["submit"] == "Cancel")
-					{
-					}
-											
-					//if (isset($_FILES['imagefile'])) {	
+																
 					if(is_uploaded_file($_FILES['imagefile']['tmp_name'])) {	
 						
 						if (!copy ($_FILES['imagefile']['tmp_name'],"../files/" .stripslashes($_FILES['imagefile']['name']))) {
@@ -62,7 +70,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");
 						
 						
 					} else {
-						//echo "<h3>Media was successfully inserted into the database.</h3>";
 						$maxid = array();
 						$maxid_q = "SELECT max(id) as id FROM files";
 						$maxid_r = $page->db->query($maxid_q);
@@ -77,12 +84,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");
 						if (strpos($_POST["mediaLink"],'youtu') !== false) 
 						{		//youtube video 
 							$mediaLink = $_POST["mediaLink"];
-							//echo("<br/>mediaLink3 " . $mediaLink);
 							$slash = strrchr($mediaLink, "/");
-							//echo("<br/>SLASH " . $slash);
-							$mediaLink = substr($mediaLink, 16);		//http://www.youtube.com/embed/XGSy3_Czz8k
-							//echo("<br/>mediaLink2 " . $mediaLink);
-							//$mediaLink = $mediaLink;
+							$mediaLink = substr($mediaLink, 16);
 							
 							
 						}else 
@@ -113,31 +116,23 @@ include($_SERVER['DOCUMENT_ROOT'] . "/gopherdaily/includes/header.php");
 									//handle tags
 									$tags_array = array();
 									$tags_array = explode(",", $_POST['tags']);
-									//echo "Tags count: " . count($tags_array);
 									foreach ($tags_array as $key => $value) {
 										
 										$value = trim($value); 
 											
 										$tag_search = array();
-										//echo ("SELECT count(*) as count FROM mainpage_tags WHERE tag_title like  \"". $value . "\"" . "<br/");
 										$tag_query = "SELECT count(*) as count FROM mainpage_tags WHERE tag_title like  \"". $value . "\"";					
 										$tag_r = $page->db->query($tag_query);
 										$tag_search = $tag_r->fetch(PDO::FETCH_ASSOC);	
-										//$filesid = $tag_search['id'];					
-										//echo ("TAG COUNT: ". $tag_search['count']);
 										
 										if($tag_search['count'] == 0)
 										{
 											$query = "INSERT INTO mainpage_tags(tag_title)
 														VALUES(\"". $value."\")";
-										//echo ("INSERT INTO mainpage_tags(tag_title)
-									//					VALUES(\"". $value."\")<br/");												
 											$insert = $page->db->query($query); 								
 										}
 										else
 										{
-												//							echo ("UPDATE  mainpage_tags SET count = count + 1
-												//		WHERE tag_title like  \"". $value."\"<br/");	
 											$query = "UPDATE  mainpage_tags SET count = count + 1
 														WHERE tag_title like  \"". $value."\"";
 											$insert = $page->db->query($query); 										

@@ -31,7 +31,7 @@ Page in use: http://www.athletics.umn.edu/credentials/
 
 ## **Athletics Intranet Update 2017**:
 
-This project was the largest that I completed at the University of Minnesota. Over 500 hours of work went into the build, design, and development of a new Intranet website built on a brand new server - all built from scratch. The overview of this project can be found [here] (http://www.athletics.umn.edu/technology1/development/shee0129/updateserver/).
+This project was the largest that I completed at the University of Minnesota. Over 500 hours of work went into the build, design, and development of a new Intranet website built on a brand new server - all built from scratch. The overview of this project can be found [here](http://www.athletics.umn.edu/technology1/development/shee0129/updateserver/).
 
 ## **Other code not included**
 

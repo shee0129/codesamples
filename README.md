@@ -31,4 +31,6 @@ Page in use: http://www.athletics.umn.edu/credentials/
 
 **Other code not included**
 
-As head of programming, I was responsible for all code include on the Athletics Intranet (www.athletics.umn.edu). Although most of this code is locked down, it is available to be viewed on the website.
+As head of programming, I am responsible for all code include on the Athletics Intranet (www.athletics.umn.edu). Although most of this code is locked down, it is available to be viewed on the website.
+
+I am also responsible for all code found on the external site www.nothingshortofgreatness.com. This fundraising site was created for external communication regarding the raising and building of new buildings for the Athletes Village at the University of Minnesota.

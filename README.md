@@ -29,6 +29,10 @@ It is updated every year to reflect that year's requirements.
 
 Page in use: http://www.athletics.umn.edu/credentials/
 
+**Athletics Intranet Update 2017**:
+
+This project was the largest I completed at the University of Minnesota. Over 500 hours of work went into the build, design, and development of a new Intranet website built on a brand new server - all built from scratch. The overview of this project can be found here: http://www.athletics.umn.edu/technology1/development/shee0129/updateserver/ .
+
 **Other code not included**
 
 As head of programming, I am responsible for all code include on the Athletics Intranet (www.athletics.umn.edu). Although most of this code is locked down, it is available to be viewed on the website.

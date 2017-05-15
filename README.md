@@ -2,7 +2,7 @@
 
 Included in this folder are coding samples of my work at the University of Minnesota.
 
-All main pieces of code were written by me during my time as  Assistant Director of IT.
+All main pieces of code were written by myself during my time as  Assistant Director of IT.
 
 The projects included are the followings:
 
